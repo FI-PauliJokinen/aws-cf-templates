@@ -615,7 +615,7 @@ Resources:
                 - '/etc/awslogs/awscli.conf'
                 - '/etc/awslogs/config/efs.conf'
                 - '/etc/awslogs/config/jenkins-master.conf'
-       ssh-access:
+        ssh-access:
           files:
             '/opt/authorized_keys_command.sh':
               content: |
