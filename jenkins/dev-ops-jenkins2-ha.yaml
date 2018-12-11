@@ -110,9 +110,9 @@ Parameters:
   MasterVolumeSize:
     Description: 'The root volume size, in Gibibytes (GiB). Keep in mind that Jenkins home lives on EFS.'
     Type: Number
-    Default: 6
-    ConstraintDescription: 'Must be in the range [6-1024]'
-    MinValue: 6
+    Default: 8
+    ConstraintDescription: 'Must be in the range [8-1024]'
+    MinValue: 8
     MaxValue: 1024
   SubDomainNameWithDot:
     Description: 'Name that is used to create the DNS entry with trailing dot, e.g. §{SubDomainNameWithDot}§{HostedZoneName}. Leave blank for naked (or apex and bare) domain. Requires ParentZoneStack parameter!'
