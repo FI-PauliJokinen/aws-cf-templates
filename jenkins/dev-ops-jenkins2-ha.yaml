@@ -63,7 +63,7 @@ Parameters:
   KeyName:
     Description: 'Optional key pair of the ec2-user to establish a SSH connection to the Jenkins master.'
     Type: String
-    Default: ''
+    Default: 'fi-internal-first'
   IAMUserSSHAccess:
     Description: 'Synchronize public keys of IAM users to enable personalized SSH access (Doc: https://cloudonaut.io/manage-aws-ec2-ssh-access-with-iam/).'
     Type: String
