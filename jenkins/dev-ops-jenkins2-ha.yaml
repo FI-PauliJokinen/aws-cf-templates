@@ -615,6 +615,37 @@ Resources:
                 - '/etc/awslogs/awscli.conf'
                 - '/etc/awslogs/config/efs.conf'
                 - '/etc/awslogs/config/jenkins-master.conf'
+        devopstools:
+          files:
+            '/opt/devops_tools_install.sh':
+              content: |
+                #!/bin/bash -e
+                mkdir devops
+                cd devops
+                echo 1. Installing Packer
+                curl https://releases.hashicorp.com/packer/1.3.3/packer_1.3.3_linux_amd64.zip --output packer_1.3.3_linux_amd64.zip
+                unzip packer_1.3.3_linux_amd64.zip
+                rm packer_1.3.3_linux_amd64.zip
+                chomod 777 packer
+                /opt/devops/packer
+                echo 2. Installing Terraform
+                curl https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip --output terraform_0.11.10_linux_amd64.zip
+                unzip terraform_0.11.10_linux_amd64.zip
+                rm terraform_0.11.10_linux_amd64.zip
+                chomod 777 terraform
+                /opt/devops/terraform
+                echo 3. Installing Ansible
+                sudo amazon-linux-extras install ansible2
+                ansible --version
+                #Todo install ansible under virtualenv to allow multiple ansible versions
+                #https://ansible-tips-and-tricks.readthedocs.io/en/latest/ansible/install/
+              mode: '000755'
+              owner: root
+              group: root
+          commands:
+            'a_devops_tools_install':
+              command: './devops_tools_install.sh'
+              cwd: '/opt'
         ssh-access:
           files:
             '/opt/authorized_keys_command.sh':

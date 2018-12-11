@@ -26,3 +26,7 @@ echo 3. Installing Ansible
 sudo amazon-linux-extras install ansible2
 ansible --version
 
+https://ansible-tips-and-tricks.readthedocs.io/en/latest/ansible/install/
+
+
+
