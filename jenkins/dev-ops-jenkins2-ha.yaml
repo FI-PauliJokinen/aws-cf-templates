@@ -684,6 +684,19 @@ Resources:
             '/opt/devops_tools_install.sh':
               content: |
                 #!/bin/bash -e
+                echo "-------------------------------------------------------------"
+                echo " Jenkins confguration and restart to avoid LB time out issues
+                echo "-------------------------------------------------------------"
+                cat /etc/sysconfig/jenkins | sed 's/JENKINS_HANDLER_MAX="100"/JENKINS_HANDLER_MAX="30"/' | sed 's/JENKINS_HANDLER_IDLE="20"/JENKINS_HANDLER_IDLE="100"/'  > /etc/sysconfig/jenkins.new
+                if ((`diff /etc/sysconfig/jenkins /etc/sysconfig/jenkins.new | wc -l`==8)); then
+                  echo changed jenkins config values:
+                  diff /etc/sysconfig/jenkins /etc/sysconfig/jenkins.new
+                  mv /etc/sysconfig/jenkins.new /etc/sysconfig/jenkins
+               else
+                 echo Config changes alredy done
+                 rm /etc/sysconfig/jenkins.new
+                fi
+                service jenkins restart
                 mkdir -p devops
                 cd devops
                 echo "---------------------"
