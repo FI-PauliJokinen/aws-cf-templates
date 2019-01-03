@@ -7,14 +7,20 @@ DevOps HA Jenkins creation process goes as follows:
 
 1. Create VPC
    [link here](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/vpc/vpc-2azs.yaml&stackName=devops-vpc&ClassB=0)
-   Select B class number that doesn't conflict your current network infra e.g. if you are sharing IPs with your on premise infra
+   
+   Select B class number that doesn't conflict your current network infra if you are sharing IPs with your on premise infra
+   
    Click next until there is confirmation checkbox at the bottom left corner to confirm it is OK to create IAM resoures if needs be, check that
+   
    Click confirm and the stack creation starts
 
 2. Create HA Jenkins 
    [link here](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/jenkins/dev-ops-jenkins2-ha.yaml&stackName=devops-ha-jenkins&parentVPCStack=devops-vpc)
+   
    Select password to login to Jenkins, which you will remember
+   
    Click next until there is confirmation checkbox at the bottom left corner to confirm it is OK to create IAM resoures if needs be, check that
+   
    Click confirm and the stack creation starts
 
 
