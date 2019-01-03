@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/widdix/aws-cf-templates.svg?branch=master)](https://travis-ci.org/widdix/aws-cf-templates)
 
-#DevOps HA Jenkins 
+# DevOps HA Jenkins 
 based on [cloudonaut.io](https://cloudonaut.io/templates-for-aws-cloudformation/) project. 
 
 DevOps HA Jenkins creation process goes as follows:
@@ -22,12 +22,11 @@ DevOps HA Jenkins creation process goes as follows:
 Should you want to create these stacks on another region, please go your AWS console on that region create these stacks by
 Navigating: Serivices -> Cloud Formation -> Create Stack and by giving script URLs as follows:
 1. Create VPC
-   https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/vpc/vpc-2azs.yaml&stackName=devops-vpc&ClassB=0
+   [link here](https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/vpc/vpc-2azs.yaml&stackName=devops-vpc&ClassB=0)
 2. Create HA Jenkins
-   https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/jenkins/dev-ops-jenkins2-ha.yaml&stackName=devops-ha-jenkins&parentVPCStack=devops-vpc
-The above process instructions steps apply for the selections
-
-
+   [link here](https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/jenkins/dev-ops-jenkins2-ha.yaml&stackName=devops-ha-jenkins&parentVPCStack=devops-vpc)
+   
+The above process instructions steps apply for these as well
 
 
 # Free Templates for AWS CloudFormation
