@@ -17,6 +17,8 @@ DevOps HA Jenkins creation process goes as follows:
 2. Create HA Jenkins 
    [link here](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/jenkins/dev-ops-jenkins2-ha.yaml&stackName=devops-ha-jenkins&parentVPCStack=devops-vpc)
    
+   Give the name of the VPN created in the step 1.
+
    Select password to login to Jenkins, which you will remember
    
    Click next until there is confirmation checkbox at the bottom left corner to confirm it is OK to create IAM resoures if needs be, check that
