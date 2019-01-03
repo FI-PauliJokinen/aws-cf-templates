@@ -24,15 +24,7 @@ DevOps HA Jenkins creation process goes as follows:
    Click confirm and the stack creation starts
 
 
-##The direct links above assume you want to create DevOps setup at europe-west-1 region i.e. Ireland
-Should you want to create these stacks on another region, please go your AWS console on that region create these stacks by
-Navigating: Serivices -> Cloud Formation -> Create Stack and by giving script URLs as follows:
-1. Create VPC
-   [link here](https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/vpc/vpc-2azs.yaml&stackName=devops-vpc&ClassB=0)
-2. Create HA Jenkins
-   [link here](https://raw.githubusercontent.com/FI-PauliJokinen/aws-cf-templates/master/jenkins/dev-ops-jenkins2-ha.yaml&stackName=devops-ha-jenkins&parentVPCStack=devops-vpc)
-   
-The above process instructions steps apply for these as well
+The direct links above assume you want to create DevOps setup at europe-west-1 region i.e. Ireland
 
 
 # Free Templates for AWS CloudFormation
