@@ -729,7 +729,7 @@ Resources:
                   echo changed jenkins config values:
                   diff /etc/sysconfig/jenkins /etc/sysconfig/jenkins.new
                   mv /etc/sysconfig/jenkins.new /etc/sysconfig/jenkins
-               else
+                else
                  echo Config changes alredy done
                  rm /etc/sysconfig/jenkins.new
                 fi
