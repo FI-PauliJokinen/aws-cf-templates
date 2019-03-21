@@ -349,11 +349,11 @@ Resources:
   MasterELBTargetGroup:
     Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
     Properties:
-      HealthCheckIntervalSeconds: 30
+      HealthCheckIntervalSeconds: 60
       HealthCheckPath: '/login'
       HealthCheckPort: '8080'
       HealthCheckProtocol: HTTP
-      HealthCheckTimeoutSeconds: 25
+      HealthCheckTimeoutSeconds: 55
       HealthyThresholdCount: 2
       UnhealthyThresholdCount: 2
       Matcher:
@@ -506,7 +506,7 @@ Resources:
                 mytags=${!rawtags2//arn\:/myarn\:}
                 aws ec2 create-tags --region "${!region}" --resources "${!volumes}" --tags "${!mytags}"
                 #rm /etc/awslogs/ebstags.sh
-              mode: '000644'
+              mode: '000755'
               owner: root
               group: root
           commands:
