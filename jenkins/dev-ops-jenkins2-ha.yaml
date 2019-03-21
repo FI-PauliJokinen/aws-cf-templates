@@ -511,7 +511,7 @@ Resources:
               group: root
           commands:
             'a_ebstags':
-              command: '/etc/awslogs/ebstags.sh &> /var/log/ebstags.log'
+              command: '/etc/awslogs/ebstags.sh &>> /var/log/cloud-init.log'
         awslogs:
           packages:
             yum:
