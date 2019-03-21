@@ -498,20 +498,20 @@ Resources:
                 testregion=${AWS::Region}
                 instance=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
                 avzone=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
-                region=${avzone/%?/}
-                volumes=$(aws ec2 describe-instances --region "${region}" --instance-ids "${instance}" --query 'Reservations[*].Instances[*].BlockDeviceMappings[*].Ebs.VolumeId' --output text)
-                asg=$(aws autoscaling describe-auto-scaling-instances --region "${region}" --instance-ids "${instance}" --query 'AutoScalingInstances[*].AutoScalingGroupName' --output text)
-                rawtags=$(aws autoscaling describe-tags --region "${region}" --filters Name=auto-scaling-group,Values="${asg}" --query 'Tags[*].{Key:Key,Value:Value}')
-                rawtags2=${rawtags//aws\:/myaws\:}
-                mytags=${rawtags2//arn\:/myarn\:}
-                aws ec2 create-tags --region "${region}" --resources "${volumes}" --tags "${mytags}"
+                region=${!avzone/%?/}
+                volumes=$(aws ec2 describe-instances --region "${!region}" --instance-ids "${!instance}" --query 'Reservations[*].Instances[*].BlockDeviceMappings[*].Ebs.VolumeId' --output text)
+                asg=$(aws autoscaling describe-auto-scaling-instances --region "${!region}" --instance-ids "${!instance}" --query 'AutoScalingInstances[*].AutoScalingGroupName' --output text)
+                rawtags=$(aws autoscaling describe-tags --region "${!region}" --filters Name=auto-scaling-group,Values="${!asg}" --query 'Tags[*].{Key:Key,Value:Value}')
+                rawtags2=${!rawtags//aws\:/myaws\:}
+                mytags=${!rawtags2//arn\:/myarn\:}
+                aws ec2 create-tags --region "${!region}" --resources "${!volumes}" --tags "${!mytags}"
                 #rm /etc/awslogs/ebstags.sh
               mode: '000644'
               owner: root
               group: root
           commands:
             'a_ebstags':
-              command: '/etc/awslogs/ebstags.sh &> /var/logs/ebstags.log'
+              command: '/etc/awslogs/ebstags.sh &> /var/log/ebstags.log'
         awslogs:
           packages:
             yum:
