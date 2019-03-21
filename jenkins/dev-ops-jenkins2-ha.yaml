@@ -484,7 +484,33 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Init':
         configSets:
-          default: !If [HasIAMUserSSHAccess, [awslogs, ssh-access, mount, install, setup, extras, custom, run, devopstools], [awslogs, mount, install, setup, extras, custom, run]]
+          default: !If [HasIAMUserSSHAccess, [awslogs, ebstags, ssh-access, mount, install, setup, extras, custom, run, devopstools], [awslogs, ebstags, mount, install, setup, extras, custom, run]]
+        ebstags:
+          files:
+            '/etc/awslogs/ebstags.sh':
+              content: !Sub |
+                echo "-------------------------------"
+                echo "Setting tags for ASG EBS volume"
+                echo "-------------------------------"
+                set -euxo pipefail
+                testinstance="{instance_id}"
+                testregion=${AWS::Region}
+                instance=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+                avzone=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+                region=${avzone/%?/}
+                volumes=$(aws ec2 describe-instances --region "${region}" --instance-ids "${instance}" --query 'Reservations[*].Instances[*].BlockDeviceMappings[*].Ebs.VolumeId' --output text)
+                asg=$(aws autoscaling describe-auto-scaling-instances --region "${region}" --instance-ids "${instance}" --query 'AutoScalingInstances[*].AutoScalingGroupName' --output text)
+                rawtags=$(aws autoscaling describe-tags --region "${region}" --filters Name=auto-scaling-group,Values="${asg}" --query 'Tags[*].{Key:Key,Value:Value}')
+                rawtags2=${rawtags//aws\:/myaws\:}
+                mytags=${rawtags2//arn\:/myarn\:}
+                aws ec2 create-tags --region "${region}" --resources "${volumes}" --tags "${mytags}"
+                #rm /etc/awslogs/ebstags.sh
+              mode: '000644'
+              owner: root
+              group: root
+          commands:
+            'a_ebstags':
+              command: '/etc/awslogs/ebstags.sh &> /var/logs/ebstags.log'
         awslogs:
           packages:
             yum:
@@ -899,7 +925,6 @@ Resources:
           #!/bin/bash -x
           /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource MasterLC --region ${AWS::Region}
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource MasterASG --region ${AWS::Region}
-  
   MasterASG:
     Type: 'AWS::AutoScaling::AutoScalingGroup'
     DependsOn:
