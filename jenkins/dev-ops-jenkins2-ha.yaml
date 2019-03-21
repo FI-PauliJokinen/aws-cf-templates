@@ -422,6 +422,7 @@ Resources:
           Statement:
           - Effect: Allow
             Action:
+            - 'autoscaling:Describe*'
             - 'ec2:Describe*'
             - 'ec2:CreateTags*'
             Resource: 
