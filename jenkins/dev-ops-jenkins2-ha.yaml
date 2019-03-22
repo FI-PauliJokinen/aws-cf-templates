@@ -615,6 +615,11 @@ Resources:
                 file = /var/log/yum.log
                 log_stream_name = {instance_id}/var/log/yum.log
                 log_group_name = ${MasterLogs}
+                [/var/log/install.log]
+                datetime_format = %b %d %H:%M:%S
+                file = /var/log/install.log
+                log_stream_name = {instance_id}/var/log/install.log
+                log_group_name = ${MasterLogs}
               mode: '000644'
               owner: root
               group: root
@@ -765,7 +770,7 @@ Resources:
               group: root
           commands:
             'a_devops_tools_install':
-              command: './devops_tools_install.sh'
+              command: './devops_tools_install.sh &>> /var/log/install.log'
               cwd: '/opt'
         mount:
           packages:
